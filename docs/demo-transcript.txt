@@ -1,0 +1,37 @@
+=== INTENT-SHOP (bnty_0417) DETERMINISTIC DEMO TRANSCRIPT ===
+Chain Integrity Verified: true
+Final State Merkle Head:  3c95832ed89c18420b17c3099faba4436a55a2cd7e0c4785fb5f8b7206d32294
+Intent Hash:              439301c2f23a1d6e252e0ccb7b413213513b70c9bf1903916d19fb790443b020
+
+[STEP 1] sale
+  Summary: Customer settles cross-chain NEAR Intent (`eip155:8453:USDC -> near:USDC`, 1,000.00 USDC) for 10 API-AUDIT-PACK packs -> order fulfilled, gross revenue = 1,000.00 USDC, inventory 15 -> 5 units, replay of the same intent -> REFUSED (intent_already_settled)
+  Metrics: {"intent_chain":"eip155:8453->near:mainnet","sku":"API-AUDIT-PACK","qty":10,"gross_usdc":1000,"inventory_before":15,"inventory_after":5,"intent_hash":"439301c2f23a1d6e252e0ccb7b413213513b70c9bf1903916d19fb790443b020","replay_attempt":"REFUSED","replay_reason":"intent_already_settled"}
+  Hash:    906f9b726fccdc21cb2455e45d5ff3d6dd28fa8e8c3bc5458790e3ca43477420
+
+[STEP 2] procurement
+  Summary: Inventory (5) <= reorder point (6) triggers autonomous procurement of 20 upstream units at 18.00 USDC/unit (360.00 USDC total, COGS ratio 36% <= human max 45%) -> inventory = 25 units, operating cash = 1,640.00 USDC
+  Metrics: {"reorder_point":6,"procured_units":20,"unit_cost_usdc":18,"total_cogs_usdc":360,"cogs_ratio_bps":3600,"max_cogs_bps":4500,"inventory_after":25,"operating_cash_usdc":1640}
+  Hash:    b961ef965f5c749698335b49d7f8071777f362695632c447ebe62a8199d694f0
+
+[STEP 3] treasury_split
+  Summary: closeEpoch() enforces 1,000.00 USDC reserve floor and splits 640.00 USDC distributable profit -> 70% (448.00 USDC) to human owner vault, 20% (128.00 USDC) to growth pool, 10% (64.00 USDC) to agent compute gas buffer
+  Metrics: {"reserve_floor_usdc":1000,"distributable_profit_usdc":640,"owner_vault_usdc":448,"growth_pool_usdc":128,"gas_buffer_usdc":64}
+  Hash:    faffe58d58f0ceab3b50d925f4cd369e739ac611bc673b9b99c56ff39f3bdfd5
+
+[STEP 4] negative_path
+  Summary: NEGATIVE PATH: agent attempts procurement of 20 units at 30.00 USDC/unit (600.00 USDC COGS against 1,000.00 USDC epoch gross = 60% > human max 45%) -> REFUSED (rule: cogs_cap_exceeded); inventory and cash unchanged (25 units, 1,000.00 USDC)
+  Metrics: {"attempted_units":20,"attempted_unit_cost_usdc":30,"attempted_cogs_usdc":600,"attempted_cogs_bps":6000,"max_cogs_bps":4500,"attempt":"REFUSED","reason":"cogs_cap_exceeded","inventory_after":25,"operating_cash_usdc":1000}
+  Hash:    3c95832ed89c18420b17c3099faba4436a55a2cd7e0c4785fb5f8b7206d32294
+
+=== ON-CHAIN EVIDENCE (NEAR testnet) ===
+Contract: ishop-backstop-1109.testnet
+Intent hash: 439301c2f23a1d6e252e0ccb7b413213513b70c9bf1903916d19fb790443b020
+Deploy:   F3t2USEAjTmUX9XweZicYmowixktuVoTYJPk7gguWiwp
+Sale:     2fSvebo2RpnQmQDExHKmjYo2KbBdG9hJ5HMShbhcg5bG
+Procure:  74JnTEMRajC96Viu981VK5DjrRcbSLdSTthqGThF7v6X
+Split:    5whUGNBbkHYpAzFtQ9vWkRFRD3QyXKfvrmpE4GY1tG18
+Negative: B5RDxDt96DKdvHoHwQez1WjuzFdimYvwipnmNToKoT86 (REFUSED: cogs_cap_exceeded)
+Replay:   9QuQM2ckomJcjkCkH9Bj4CL8FNw1gtTHoyH5o4HdJ5NS (REFUSED: intent_already_settled)
+Final inventory on-chain: 25 units
+Final operating cash on-chain: 1000.00 USDC
+Explorer: https://explorer.testnet.near.org/accounts/ishop-backstop-1109.testnet

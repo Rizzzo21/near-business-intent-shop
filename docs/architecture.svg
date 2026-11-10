@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="460" viewBox="0 0 920 460" font-family="monospace">
+  <rect width="920" height="460" fill="#ffffff"/>
+  <text x="460" y="34" text-anchor="middle" font-size="18" font-weight="bold" fill="#111">INTENT-SHOP — checkout → intent → shop → procurement → treasury split</text>
+  <text x="460" y="56" text-anchor="middle" font-size="12" fill="#555">NEAR testnet contract: ishop-backstop-1109.testnet (deployed 2026-11-09)</text>
+
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 z" fill="#333"/>
+    </marker>
+  </defs>
+
+  <!-- Customer -->
+  <rect x="30" y="110" width="150" height="90" rx="8" fill="#eef4ff" stroke="#3355aa" stroke-width="2"/>
+  <text x="105" y="140" text-anchor="middle" font-size="14" font-weight="bold" fill="#111">Customer</text>
+  <text x="105" y="162" text-anchor="middle" font-size="11" fill="#333">buys 10 API-AUDIT</text>
+  <text x="105" y="178" text-anchor="middle" font-size="11" fill="#333">packs, 1,000 Base USDC</text>
+
+  <!-- Checkout / Intent -->
+  <rect x="230" y="110" width="170" height="90" rx="8" fill="#fff7e6" stroke="#aa7711" stroke-width="2"/>
+  <text x="315" y="140" text-anchor="middle" font-size="14" font-weight="bold" fill="#111">1 · Checkout intent</text>
+  <text x="315" y="162" text-anchor="middle" font-size="11" fill="#333">eip155:8453:USDC -&gt;</text>
+  <text x="315" y="178" text-anchor="middle" font-size="11" fill="#333">near:USDC, sha256 hash</text>
+
+  <!-- Shop contract -->
+  <rect x="450" y="110" width="170" height="90" rx="8" fill="#eaffea" stroke="#227722" stroke-width="2"/>
+  <text x="535" y="140" text-anchor="middle" font-size="14" font-weight="bold" fill="#111">2 · Shop (on-chain)</text>
+  <text x="535" y="162" text-anchor="middle" font-size="11" fill="#333">sale() checks gross =</text>
+  <text x="535" y="178" text-anchor="middle" font-size="11" fill="#333">qty x price, stock, hash</text>
+
+  <!-- Procurement -->
+  <rect x="670" y="110" width="150" height="90" rx="8" fill="#fdeaea" stroke="#aa2222" stroke-width="2"/>
+  <text x="745" y="140" text-anchor="middle" font-size="14" font-weight="bold" fill="#111">3 · Procurement</text>
+  <text x="745" y="162" text-anchor="middle" font-size="11" fill="#333">stock 5 &lt;= 6 triggers</text>
+  <text x="745" y="178" text-anchor="middle" font-size="11" fill="#333">20 units @ 18, COGS 36%</text>
+
+  <!-- Treasury split -->
+  <rect x="300" y="270" width="320" height="100" rx="8" fill="#f0eaff" stroke="#6622aa" stroke-width="2"/>
+  <text x="460" y="300" text-anchor="middle" font-size="14" font-weight="bold" fill="#111">4 · Treasury split (on-chain)</text>
+  <text x="460" y="322" text-anchor="middle" font-size="11" fill="#333">closeEpoch(): 1,640 - 1,000 floor = 640 distributable</text>
+  <text x="460" y="338" text-anchor="middle" font-size="11" fill="#333">448 owner vault · 128 growth pool · 64 gas buffer</text>
+  <text x="460" y="354" text-anchor="middle" font-size="11" fill="#333">reserve floor 1,000 USDC retained in operating cash</text>
+
+  <!-- Negative path -->
+  <rect x="30" y="270" width="220" height="100" rx="8" fill="#fff0f0" stroke="#aa2222" stroke-width="2"/>
+  <text x="140" y="300" text-anchor="middle" font-size="14" font-weight="bold" fill="#111">Negative path</text>
+  <text x="140" y="322" text-anchor="middle" font-size="11" fill="#333">20 units @ 30 USDC = 600</text>
+  <text x="140" y="338" text-anchor="middle" font-size="11" fill="#333">COGS, 60% &gt; 45% max →</text>
+  <text x="140" y="354" text-anchor="middle" font-size="11" fill="#333">REFUSED (cogs_cap_exceeded)</text>
+
+  <!-- Arrows -->
+  <line x1="180" y1="155" x2="228" y2="155" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="400" y1="155" x2="448" y2="155" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="620" y1="155" x2="668" y2="155" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="745" y1="200" x2="745" y2="235" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="620" y1="252" x2="470" y2="268" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="250" y1="320" x2="298" y2="320" stroke="#aa2222" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="690" y="228" text-anchor="middle" font-size="11" fill="#333">restock</text>
+  <text x="545" y="252" text-anchor="middle" font-size="11" fill="#333">inventory 25, cash 1,640</text>
+
+  <text x="460" y="400" text-anchor="middle" font-size="11" fill="#777">Stub solver: sale() checks the gross math on-chain and stores the intent hash; it does not call intents.near execute_intents. Ledger amounts are micro-USDC accounting units.</text>
+  <text x="460" y="420" text-anchor="middle" font-size="11" fill="#777">Replay of the same intent is refused on-chain (intent_already_settled); the negative-path refusal leaves inventory and cash unchanged.</text>
+</svg>

@@ -1,0 +1,79 @@
+{
+  "network": "testnet",
+  "contract_account": "ishop-backstop-1109.testnet",
+  "contract_explorer": "https://explorer.testnet.near.org/accounts/ishop-backstop-1109.testnet",
+  "contract_wasm_sha256": "60980cc141e8476bb943184eeed9de07a49495b832509c6cbbecba2ec2ab6b15",
+  "deployed_at_utc": "2026-11-10T01:47:37.805Z",
+  "intent": {
+    "from_asset": "eip155:8453:USDC",
+    "to_asset": "near:mainnet:USDC",
+    "sku": "API-AUDIT-PACK",
+    "qty": 10,
+    "amount_in_micro": "1000000000",
+    "solver": "stub-solver",
+    "nonce": "intent-shop-demo-001",
+    "deadline_seconds": 300
+  },
+  "intent_hash": "439301c2f23a1d6e252e0ccb7b413213513b70c9bf1903916d19fb790443b020",
+  "flow": {
+    "deploy": {
+      "tx": "F3t2USEAjTmUX9XweZicYmowixktuVoTYJPk7gguWiwp",
+      "explorer": "https://explorer.testnet.near.org/transactions/F3t2USEAjTmUX9XweZicYmowixktuVoTYJPk7gguWiwp"
+    },
+    "sale": {
+      "tx": "2fSvebo2RpnQmQDExHKmjYo2KbBdG9hJ5HMShbhcg5bG",
+      "explorer": "https://explorer.testnet.near.org/transactions/2fSvebo2RpnQmQDExHKmjYo2KbBdG9hJ5HMShbhcg5bG",
+      "qty": 10,
+      "gross_usdc": "1000.00"
+    },
+    "procure": {
+      "tx": "74JnTEMRajC96Viu981VK5DjrRcbSLdSTthqGThF7v6X",
+      "explorer": "https://explorer.testnet.near.org/transactions/74JnTEMRajC96Viu981VK5DjrRcbSLdSTthqGThF7v6X",
+      "units": 20,
+      "unit_cost_usdc": "18.00",
+      "total_cogs_usdc": "360.00",
+      "cogs_bps": 3600
+    },
+    "close_epoch": {
+      "tx": "5whUGNBbkHYpAzFtQ9vWkRFRD3QyXKfvrmpE4GY1tG18",
+      "explorer": "https://explorer.testnet.near.org/transactions/5whUGNBbkHYpAzFtQ9vWkRFRD3QyXKfvrmpE4GY1tG18",
+      "distributable_usdc": "640.00",
+      "owner_vault_usdc": "448.00",
+      "growth_pool_usdc": "128.00",
+      "gas_buffer_usdc": "64.00"
+    },
+    "negative_refused": {
+      "tx": "B5RDxDt96DKdvHoHwQez1WjuzFdimYvwipnmNToKoT86",
+      "explorer": "https://explorer.testnet.near.org/transactions/B5RDxDt96DKdvHoHwQez1WjuzFdimYvwipnmNToKoT86",
+      "error": "{\"Failure\":{\"ActionError\":{\"index\":0,\"kind\":{\"FunctionCallError\":{\"ExecutionError\":\"Smart contract panicked: cogs_cap_exceeded\\n    at procure (build/contract.js:2646)\\n    at apply (native)\\n    at <anonymous> (build/contract.js:2462)\\n    at procure (build/contract.js:2724)\\n\"}}}}}",
+      "attempted_units": 20,
+      "attempted_unit_cost_usdc": "30.00",
+      "attempted_cogs_bps": 6000,
+      "rule": "cogs_cap_exceeded",
+      "prover_account": "ishop-prover-1109.testnet"
+    },
+    "replay_refused": {
+      "tx": "9QuQM2ckomJcjkCkH9Bj4CL8FNw1gtTHoyH5o4HdJ5NS",
+      "explorer": "https://explorer.testnet.near.org/transactions/9QuQM2ckomJcjkCkH9Bj4CL8FNw1gtTHoyH5o4HdJ5NS",
+      "error": "{\"Failure\":{\"ActionError\":{\"index\":0,\"kind\":{\"FunctionCallError\":{\"ExecutionError\":\"Smart contract panicked: intent_already_settled\\n    at sale (build/contract.js:2592)\\n    at apply (native)\\n    at <anonymous> (build/contract.js:2462)\\n    at sale (build/contract.js:2738)\\n\"}}}}}",
+      "prover_account": "ishop-prover-1109.testnet"
+    }
+  },
+  "final_state": {
+    "inventory_units": 25,
+    "operating_cash_micro": "1000000000",
+    "owner_vault_micro": "448000000",
+    "growth_pool_micro": "128000000",
+    "gas_buffer_micro": "64000000",
+    "epoch_gross_micro": "1000000000",
+    "settled_intent_count": 1
+  },
+  "verified_figures": {
+    "inventory_units": 25,
+    "operating_cash_usdc": "1000.00",
+    "owner_vault_usdc": "448.00",
+    "growth_pool_usdc": "128.00",
+    "gas_buffer_usdc": "64.00"
+  },
+  "disclosure": "Stub solver: sale() verifies gross = qty x SKU price on-chain and records the intent hash so it cannot settle twice; it does not call intents.near execute_intents. Procurement and the treasury split are the shop policy logic executed on-chain. Ledger amounts are micro-USDC accounting units; on-chain value moved is testnet NEAR for gas/storage only."
+}
