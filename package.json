@@ -1,0 +1,15 @@
+{
+  "description": "INTENT-SHOP - AI-native autonomous merchant with NEAR Intents cross-chain checkout, auto-procurement, and policy-constrained treasury split",
+  "devDependencies": {
+    "near-api-js": "^5.1.1",
+    "near-sdk-js": "^2.0.0"
+  },
+  "license": "MIT",
+  "name": "@near-contest/intents-autonomous-shop",
+  "scripts": {
+    "demo": "node scripts/demo.mjs",
+    "test": "node --test test/engine.test.mjs"
+  },
+  "type": "module",
+  "version": "1.0.0"
+}
