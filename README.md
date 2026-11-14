@@ -40,6 +40,11 @@ Final on-chain state: inventory 25 units, operating cash 1,000.00 USDC, owner va
 
 ## 5. Deploy to Testnet (reproduce the on-chain evidence)
 ```bash
+# 0. Install the dev tooling.  near-sdk-js / near-api-js are devDependencies,
+#    so a shell with NODE_ENV=production set makes a plain `npm install` skip
+#    them entirely -- `--include=dev` installs them either way:
+npm install --include=dev
+
 # 1. Build the contract (near-sdk-js; needs its postinstall deps — if the
 #    sandbox postinstall fails, extract the three release archives into
 #    node_modules/near-sdk-js/lib/cli/deps/ as in the DeFi backstop).
@@ -73,6 +78,6 @@ node scripts/capture-refusals.mjs
 - NEAR testnet explorer: https://explorer.testnet.near.org
 - NEAR testnet faucet / wallet: https://wallet.testnet.near.org
 - NEP-141 (fungible tokens): https://nomicon.io/Standards/Tokens/FungibleToken
-- NEAR docs (contracts): https://docs.near.org/build/smart-contracts/what-is
+- NEAR docs (contracts): https://docs.near.org/smart-contracts/what-is
 - Demo screenshot (real `node scripts/demo.mjs` output): `docs/demo-screenshot.png`
 - Architecture diagram: `docs/architecture.svg`
